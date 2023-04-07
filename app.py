@@ -44,10 +44,40 @@ def get_responses(array):
     return questions_array
         
 
+# youtube_video_id = '-UrdExQW0cs'
+
+# sentences = get_transcript(youtube_video_id)
+
+# array = get_sentences(sentences)
 
 app = Flask(__name__)
 
 # @app.after_request
+# def after_request(response):
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+#     return response
+
+@app.route('/', methods=['POST'])
+@cross_origin()
+def api():
+    data = request.get_json()
+    youtube_video_id = data["youtubeVideoId"]
+    sentences = get_transcript(youtube_video_id)
+    array = get_sentences(sentences)
+
+    questions = get_responses(array)
+    return jsonify(questions)
+
+# test endpoint that console logs the post data
+@app.route('/test', methods=['GET'])
+@cross_origin()
+def test():
+    data = request.get_json()
+    print(data)
+    return jsonify(data)
+
 @app.route('/any', methods=['GET'])
 @cross_origin()
 def anymethod():
