@@ -17,3 +17,28 @@ def get_sentences(text, num_of_sentences=5):
     for i in range(0, 5):
         new_array.append(text[i*length_of_each_part:(i+1)*length_of_each_part])
     return new_array
+
+def parse(array):
+    text = ""
+    for item in array:
+        text += item
+    return text
+
+def print_array_as_sentences(array):
+    for sentence in array:
+        print(sentence)
+
+def get_responses(array):
+    questions_array = []
+    for sentence in array:
+        print("Generating Question " + str(array.index(sentence) + 1) + "...")
+        sentence = parse(sentence)
+        response = requests.post("https://currentlyexhausted-question-generator.hf.space/run/predict", json={
+            "data": [
+                sentence,
+            ]
+        }).json()
+        questions_array.append(response["data"][0])
+    return questions_array
+        
+
