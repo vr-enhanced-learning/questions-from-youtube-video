@@ -1,3 +1,5 @@
+from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
 from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 
@@ -42,3 +44,15 @@ def get_responses(array):
     return questions_array
         
 
+
+app = Flask(__name__)
+
+# @app.after_request
+@app.route('/any', methods=['GET'])
+@cross_origin()
+def anymethod():
+    return "IT is working"
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
