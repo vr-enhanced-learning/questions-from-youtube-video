@@ -4,7 +4,12 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import requests
 
 def get_transcript(video_id):
-    srt = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
+    
+    try:
+        srt = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
+    except:
+        srt = YouTubeTranscriptApi.get_transcript(video_id, languages=['en-US'])    
+
     def array_fi(array):
         newArray = []
         for item in array:
