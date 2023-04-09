@@ -19,10 +19,15 @@ def beautify_cc(array):
   return replace_hyphens(join_strings(array))
 
 
+def get_transcript(video_id, want_string=False):
     
     try:
         srt = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
     except:
+        srt = YouTubeTranscriptApi.get_transcript(video_id, languages=['en-US'])
+
+    if want_string:
+        return beautify_cc(array_fi(srt))
     
     return array_fi(srt)
 
