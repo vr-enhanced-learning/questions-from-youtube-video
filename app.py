@@ -82,18 +82,12 @@ def api():
     questions = get_responses(array)
     return jsonify(questions)
 
-# test endpoint that console logs the post data
-@app.route('/test', methods=['GET'])
+@app.route('/captions', methods=['GET'])
 @cross_origin()
-def test():
-    data = request.get_json()
-    print(data)
-    return jsonify(data)
-
-@app.route('/any', methods=['GET'])
-@cross_origin()
-def anymethod():
-    return "IT is working"
+def captions():
+    youtube_video_id = request.args.get('youtubeVideoId')
+    sentences = get_transcript(youtube_video_id, True)
+    return jsonify(sentences)
 
 
 if __name__ == '__main__':
