@@ -9,6 +9,16 @@ def array_fi(array):
         newArray.append(item["text"])
     return newArray
 
+def replace_hyphens(string_with_hyphens):
+  return string_with_hyphens.replace("-", "")
+
+def join_strings(string_array):
+  return " ".join(string_array)
+
+def beautify_cc(array):
+  return replace_hyphens(join_strings(array))
+
+
     
     try:
         srt = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
